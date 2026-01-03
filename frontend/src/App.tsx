@@ -76,7 +76,7 @@ const placeBackRank = (): PieceType[] => ['rook', 'knight', 'bishop', 'queen', '
 const createInitialBoard = (): Board => {
   const board: Board = Array.from({ length: 8 }, () => Array<Square>(8).fill(null))
 
-  const backRank = placeBackRank('white')
+  const backRank = placeBackRank()
 
   backRank.forEach((type, col) => {
     board[0][col] = { type, color: 'black' }
