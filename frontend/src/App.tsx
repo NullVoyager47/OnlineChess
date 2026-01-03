@@ -71,7 +71,7 @@ const inBounds = ({ row, col }: Position) => row >= 0 && row < 8 && col >= 0 && 
 
 const cloneBoard = (board: Board): Board => board.map((row) => row.slice())
 
-const placeBackRank = (color: Color): PieceType[] => ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook']
+const placeBackRank = (): PieceType[] => ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook']
 
 const createInitialBoard = (): Board => {
   const board: Board = Array.from({ length: 8 }, () => Array<Square>(8).fill(null))
@@ -270,13 +270,6 @@ const isSquareAttacked = (board: Board, square: Position, byColor: Color): boole
     }
   }
   return false
-}
-
-const movePiece = (board: Board, from: Position, to: Position): Board => {
-  const next = cloneBoard(board)
-  next[to.row][to.col] = next[from.row][from.col]
-  next[from.row][from.col] = null
-  return next
 }
 
 const moveWithSpecial = (board: Board, from: Position, to: Position, promotionType?: PieceType): Board => {
@@ -556,7 +549,6 @@ function App() {
     if (!movingPiece) return
 
     const targetPiece = board[to.row][to.col]
-    const isCastling = movingPiece.type === 'king' && Math.abs(to.col - from.col) === 2
     const isEnPassant =
       movingPiece.type === 'pawn' && from.col !== to.col && !targetPiece && enPassantTarget &&
       enPassantTarget.row === to.row && enPassantTarget.col === to.col
